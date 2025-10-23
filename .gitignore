@@ -60,5 +60,5 @@ logs/
 
 *.png
 *.txt
-*.wandb
+**/wandb/
 *.json
