@@ -62,3 +62,4 @@ logs/
 *.txt
 **/wandb/
 *.json
+*.pt
