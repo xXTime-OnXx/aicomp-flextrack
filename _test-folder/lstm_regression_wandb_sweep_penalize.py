@@ -192,7 +192,9 @@ def create_sequences(X, y, seq_length):
     
     for i in range(len(X) - seq_length):
         sequences_X.append(X[i:i+seq_length])
-        sequences_y.append(y[i+seq_length])
+        sequences_y.append(y[i+seq_length - 1])
+
+    print(f"Sequences X: {len(sequences_X)}, Sequences Y: {len(sequences_y)}")
     
     return np.array(sequences_X), np.array(sequences_y)
 
@@ -569,6 +571,8 @@ if __name__ == "__main__":
             "num_epochs": 50,
             "gradient_clip_val": 1.0,
             "warmup_epochs": 5,
+            "fp_penalty_weight": 50,
+            "fp_penalty_threshold": 0.1
         }
 
         train_model(default_config)
