@@ -102,9 +102,23 @@ class LSTMTrainer:
         X_train_seq = np.vstack((X_train_seq_a, X_train_seq_c))
         y_train_seq = np.vstack((y_train_seq_a, y_train_seq_c))
         
-        # Create datasets
-        train_dataset = TimeSeriesDataset(X_train_seq, y_train_seq, seq_length=1)
-        val_dataset = TimeSeriesDataset(X_val_seq, y_val_seq, seq_length=1)
+        """Create PyTorch datasets. Testing if works better than TimeSeriesDataset."""
+        from torch.utils.data import Dataset
+
+        class PowerDataset(Dataset):
+            def __init__(self, X, y):
+                self.X = torch.FloatTensor(X)
+                self.y = torch.FloatTensor(y)
+
+            def __len__(self):
+                return len(self.X)
+
+            def __getitem__(self, idx):
+                return self.X[idx], self.y[idx]
+
+        train_dataset = PowerDataset(X_train_seq, y_train_seq)
+        val_dataset = PowerDataset(X_val_seq, y_val_seq)
+        """End of test."""
         
         # Create dataloaders
         train_loader = DataLoader(
