@@ -95,9 +95,9 @@ def add_rolling_features(df):
 def encode_categorical_features(df):
     """One-hot encode categorical features but keep original columns."""
     
-    minute_dummies = pd.get_dummies(df['minute'])
-    dow_dummies = pd.get_dummies(df['day_of_week'])
-    dr_dummies = pd.get_dummies(df['Demand_Response_Flag'])
+    minute_dummies = pd.get_dummies(df['minute'], prefix="minute")
+    dow_dummies = pd.get_dummies(df['day_of_week'], prefix="day_of_week")
+    dr_dummies = pd.get_dummies(df['Demand_Response_Flag'], prefix="Demand_Response_Flag")
     
     # Concatenate all dummies
     df = pd.concat([df, minute_dummies, dow_dummies, dr_dummies], axis=1)
