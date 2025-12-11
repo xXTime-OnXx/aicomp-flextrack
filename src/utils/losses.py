@@ -2,7 +2,7 @@
 
 import torch
 import torch.nn as nn
-
+import torch.nn.functional as F
 
 class PenalizedMSELoss(nn.Module):
     """MSE Loss with false positive penalty for demand response predictions."""
